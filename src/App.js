@@ -7,6 +7,7 @@ import Timer from './components/Timer'
 
 function App() {
   const [sessionLength, setSessionLength] = useState(60 * 25);
+  const [breakLength, setBreakLength] = useState(60 * 5);
 
     const decreaseSessionLengthByOneMinute = () => {
         const newSessionLength = sessionLength - 60;
@@ -22,7 +23,6 @@ function App() {
         setSessionLength(sessionLength + 60);
     };
 
-    const [breakLength, setBreakLength] = useState(60 * 5);
 
     const decreaseBreakLengthByOneMinute = () => {
         const newBreakLength = breakLength - 60;
@@ -45,6 +45,7 @@ function App() {
           increaseBreakLengthByOneMinute={increaseBreakLengthByOneMinute}
         />
         <Timer 
+          breakLength={breakLength}
           sessionLength={sessionLength}
         />
         <Session 

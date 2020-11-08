@@ -3,6 +3,7 @@ import './App.css';
 import { useState } from 'react'
 import Break from './components/Break'
 import Session from './components/Session'
+import Timer from './components/Timer'
 
 function App() {
   const [sessionLength, setSessionLength] = useState(60 * 25);
@@ -42,6 +43,9 @@ function App() {
           breakLength={breakLength}
           decreaseBreakLengthByOneMinute={decreaseBreakLengthByOneMinute}
           increaseBreakLengthByOneMinute={increaseBreakLengthByOneMinute}
+        />
+        <Timer 
+          sessionLength={sessionLength}
         />
         <Session 
           sessionLength={sessionLength}

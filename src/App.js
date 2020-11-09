@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Break from './components/Break'
 import Session from './components/Session'
 import Timer from './components/Timer'
@@ -8,35 +8,69 @@ import Timer from './components/Timer'
 function App() {
   const [sessionLength, setSessionLength] = useState(60 * 25);
   const [breakLength, setBreakLength] = useState(60 * 5);
+  const [timeLeft, setTimeLeft] = useState(sessionLength);
+  const [intervalID, setIntervalID] = useState(null);
+  const [currentSessionType, setCurrentSessionType] = useState('Session');
 
-    const decreaseSessionLengthByOneMinute = () => {
-        const newSessionLength = sessionLength - 60;
+  useEffect(() => {
+      setTimeLeft(sessionLength)
+  }, [sessionLength]);
 
-        if (newSessionLength < 0) {
-            setSessionLength(0);
-        } else {
-            setSessionLength(newSessionLength);
-        }
-    };
+  const decreaseSessionLengthByOneMinute = () => {
+      const newSessionLength = sessionLength - 60;
 
-    const increaseSessionLengthByOneMinute = () => {
-        setSessionLength(sessionLength + 60);
-    };
+      if (newSessionLength < 0) {
+          setSessionLength(0);
+      } else {
+          setSessionLength(newSessionLength);
+      }
+  };
+
+  const increaseSessionLengthByOneMinute = () => {
+      setSessionLength(sessionLength + 60);
+  };
 
 
-    const decreaseBreakLengthByOneMinute = () => {
-        const newBreakLength = breakLength - 60;
+  const decreaseBreakLengthByOneMinute = () => {
+      const newBreakLength = breakLength - 60;
 
-        if (newBreakLength < 0) {
-            setBreakLength(0);
-        } else {
-            setBreakLength(newBreakLength);
-        }
-    };
+      if (newBreakLength < 0) {
+          setBreakLength(0);
+      } else {
+          setBreakLength(newBreakLength);
+      }
+  };
 
-    const increaseBreakLengthByOneMinute = () => {
-        setBreakLength(breakLength + 60);
-    };
+  const increaseBreakLengthByOneMinute = () => {
+      setBreakLength(breakLength + 60);
+  };
+
+  const isStarted = intervalID !== null;
+  const handleStartStopClick = () => {
+    if (isStarted){
+        clearInterval(intervalID)
+        setIntervalID(null)
+    } else {
+        const newIntervalID = setInterval(() => {
+            setTimeLeft(previousTimeLeft => {
+                const newTimeLeft = previousTimeLeft - 1;
+                if(newTimeLeft >= 0) {
+                    return previousTimeLeft - 1
+                }
+                if(currentSessionType === 'Session') {
+                    setCurrentSessionType('Break')
+                    setTimeLeft(breakLength)
+                }
+                else if(currentSessionType === 'Break') {
+                    setCurrentSessionType('Session')
+                    setTimeLeft(sessionLength)
+                }
+            });
+        }, 100);
+        setIntervalID(newIntervalID);
+    }
+};
+
   return (
     <div className="App">
         <Break 
@@ -45,8 +79,10 @@ function App() {
           increaseBreakLengthByOneMinute={increaseBreakLengthByOneMinute}
         />
         <Timer 
-          breakLength={breakLength}
-          sessionLength={sessionLength}
+          timerLabel={currentSessionType}
+          handleStartStopClick={handleStartStopClick}
+          startStopButtonLabel={isStarted? 'Stop' : 'Start'}
+          timeLeft={timeLeft}
         />
         <Session 
           sessionLength={sessionLength}

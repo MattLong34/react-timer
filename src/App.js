@@ -1,11 +1,12 @@
 import logo from './logo.svg';
 import './App.css';
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Break from './components/Break'
 import Session from './components/Session'
 import Timer from './components/Timer'
 
 function App() {
+  const audioElement = useRef(null)
   const [sessionLength, setSessionLength] = useState(60 * 25);
   const [breakLength, setBreakLength] = useState(60 * 5);
   const [timeLeft, setTimeLeft] = useState(sessionLength);
@@ -57,6 +58,8 @@ function App() {
                 if(newTimeLeft >= 0) {
                     return previousTimeLeft - 1
                 }
+                // add counter here? if time left is zero
+                audioElement.current.play()
                 if(currentSessionType === 'Session') {
                     setCurrentSessionType('Break')
                     setTimeLeft(breakLength)
@@ -71,6 +74,7 @@ function App() {
     }
 };
   const handleResetButton = () => {
+    audioElement.current.load()
     clearInterval(intervalID)
     setIntervalID(null)
     setCurrentSessionType('Session')
@@ -97,6 +101,9 @@ function App() {
           increaseSessionLengthByOneMinute={increaseSessionLengthByOneMinute}
         />
         <button onClick={handleResetButton}>Reset</button>
+        <audio id="sound" ref={audioElement}>
+          <source src="https://onlineclock.net/audio/options/harp-strumming.mp3" type="audio/mpeg" />
+        </audio>
     </div>
   );
 }

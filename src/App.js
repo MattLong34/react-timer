@@ -12,6 +12,7 @@ function App() {
   const [timeLeft, setTimeLeft] = useState(sessionLength);
   const [intervalID, setIntervalID] = useState(null);
   const [currentSessionType, setCurrentSessionType] = useState('Session');
+  const [sessionsCompleted, setSessionsCompleted] = useState(0);
 
   useEffect(() => {
       setTimeLeft(sessionLength)
@@ -46,6 +47,10 @@ function App() {
       setBreakLength(breakLength + 60);
   };
 
+  const addSessionToCompleted = () => {
+    setSessionsCompleted(sessionsCompleted + 1)
+  }
+
   const isStarted = intervalID !== null;
   const handleStartStopClick = () => {
     if (isStarted){
@@ -59,6 +64,9 @@ function App() {
                     return previousTimeLeft - 1
                 }
                 // add counter here? if time left is zero
+                // setSessionsCompleted(sessionsCompleted + 1)
+                // addSessionToCompleted()
+                // console.log("sessions completed", sessionsCompleted)
                 audioElement.current.play()
                 if(currentSessionType === 'Session') {
                     setCurrentSessionType('Break')
@@ -82,6 +90,15 @@ function App() {
     setBreakLength(60 * 5)
     setTimeLeft(60 * 25)
   }
+  const handleTestModeButton = () => {
+    audioElement.current.load()
+    clearInterval(intervalID)
+    setIntervalID(null)
+    setCurrentSessionType('Session')
+    setSessionLength(60 * 1)
+    setBreakLength(60 * 1)
+    setTimeLeft(60 * 1)
+  }
   return (
     <div className="App">
         <Break 
@@ -100,10 +117,12 @@ function App() {
           decreaseSessionLengthByOneMinute={decreaseSessionLengthByOneMinute}
           increaseSessionLengthByOneMinute={increaseSessionLengthByOneMinute}
         />
-        <button onClick={handleResetButton}>Reset</button>
+        <button onClick={handleResetButton}>Reset Settings</button>
+        <button onClick={handleTestModeButton}>Set Test Mode</button>
         <audio id="sound" ref={audioElement}>
           <source src="https://onlineclock.net/audio/options/harp-strumming.mp3" type="audio/mpeg" />
         </audio>
+        <p>Sessions Completed: {sessionsCompleted}</p>
     </div>
   );
 }

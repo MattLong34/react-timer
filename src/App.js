@@ -18,6 +18,19 @@ function App() {
       setTimeLeft(sessionLength)
   }, [sessionLength]);
 
+  useEffect(() => {
+    if (timeLeft === 0) {
+      audioElement.current.play()
+      if (currentSessionType === 'Session') {
+        setCurrentSessionType('Break')
+        setTimeLeft(breakLength)
+      } else if (currentSessionType === 'Break') {
+        setCurrentSessionType('Session')
+        setTimeLeft(sessionLength)
+      }
+    }
+  }, [breakLength, currentSessionType, sessionLength, timeLeft])
+
   const decreaseSessionLengthByOneMinute = () => {
       const newSessionLength = sessionLength - 60;
 
@@ -47,10 +60,14 @@ function App() {
       setBreakLength(breakLength + 60);
   };
 
-  const addSessionToCompleted = () => {
-    setSessionsCompleted(sessionsCompleted + 1)
-  }
+  // const addSessionToCompleted = () => {
+  //   setSessionsCompleted(sessionsCompleted + 1)
+  // }
 
+  // add counter here? if time left is zero
+  // setSessionsCompleted(sessionsCompleted + 1)
+  // addSessionToCompleted()
+  // console.log("sessions completed", sessionsCompleted)
   const isStarted = intervalID !== null;
   const handleStartStopClick = () => {
     if (isStarted){
@@ -58,25 +75,7 @@ function App() {
         setIntervalID(null)
     } else {
         const newIntervalID = setInterval(() => {
-            setTimeLeft(previousTimeLeft => {
-                const newTimeLeft = previousTimeLeft - 1;
-                if(newTimeLeft >= 0) {
-                    return previousTimeLeft - 1
-                }
-                // add counter here? if time left is zero
-                // setSessionsCompleted(sessionsCompleted + 1)
-                // addSessionToCompleted()
-                // console.log("sessions completed", sessionsCompleted)
-                audioElement.current.play()
-                if(currentSessionType === 'Session') {
-                    setCurrentSessionType('Break')
-                    setTimeLeft(breakLength)
-                }
-                else if(currentSessionType === 'Break') {
-                    setCurrentSessionType('Session')
-                    setTimeLeft(sessionLength)
-                }
-            });
+            setTimeLeft(previousTimeLeft => previousTimeLeft -1)
         }, 100);
         setIntervalID(newIntervalID);
     }

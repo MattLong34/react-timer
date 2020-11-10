@@ -103,4 +103,4 @@ Feel free to contact me with any questions or suggestions!
 
 ## License
 
-[Click to view]()
+[Click to view](https://github.com/MattLong34/react-timer/blob/master/LICENSE.md)

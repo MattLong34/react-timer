@@ -22,7 +22,7 @@ Want to see Tesla Timer in action without waiting in real time? Launch Ludicrous
 
 ## Sneak Peek
 
-![Tesla Timer Image](https://i.imgur.com/mcc5qeV.png)
+![Tesla Timer Image](https://i.imgur.com/qRvtI48.png)
 
 ## Technologies
 

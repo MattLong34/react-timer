@@ -1,6 +1,6 @@
 # Tesla Timer
 
-> Use this Tesla-themed pomodoro timer to crusie through your work!
+> Use this Tesla-themed pomodoro timer to cruise through your work!
 
 ## Table of Contents
 
@@ -22,7 +22,7 @@ Want to see Tesla Timer in action without waiting in real time? Launch Ludicrous
 
 ## Sneak Peek
 
-![Tesla Timer Image](https://imgur.com/a/SRDK2En)
+![Tesla Timer Image](https://i.imgur.com/mcc5qeV.png)
 
 ## Technologies
 

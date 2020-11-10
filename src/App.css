@@ -2,18 +2,14 @@
 	text-align: center;
 	display: flex;
 	justify-content: center;
-	background-color: #cc0000;
-	height: 100vh;
 }
 
 .pomodoro {
-	width: 25rem;
-	height: 35rem;
 	margin-top: 5rem;
 	border: none;
 	background-color: #cccccc;
 	color: #333333;
-	padding: 1rem;
+	padding: 2rem;
 	border-radius: 50px;
 }
 
@@ -23,19 +19,24 @@
 
 #time-left {
 	font-size: 5rem;
+	margin: 1rem;
 }
 
 .button-large {
+	font-family: Goldman, sans-serif;
+	font-weight: 700;
 	background-color: #999999;
 	color: #333333;
 	border: none;
 	border-radius: 30px;
 	margin: 0.5rem;
 	padding: 0.75rem;
-	/* box-shadow: 1px 1px 1px black; */
+	cursor: pointer;
 }
 
 .button-small {
+	font-family: Goldman, sans-serif;
+	font-weight: 700;
 	background-color: #999999;
 	color: #333333;
 	border: none;
@@ -44,8 +45,8 @@
 	height: 2rem;
 	margin: 0.5rem;
 	padding: 0.5rem;
-	/* box-shadow: 1px 1px 1px black; */
 	line-height: normal;
+	cursor: pointer;
 }
 
 .button-large:focus {
@@ -65,7 +66,7 @@
 .settings-row {
 	display: flex;
 	justify-content: space-around;
-	margin: 1rem;
+	margin: 2rem;
 }
 
 .type-label {

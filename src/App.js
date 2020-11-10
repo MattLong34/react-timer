@@ -1,10 +1,8 @@
-import logo from './logo.svg';
 import './App.css';
 import { useState, useEffect, useRef } from 'react'
 import Break from './components/Break'
 import Session from './components/Session'
 import Timer from './components/Timer'
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   const audioElement = useRef(null)
@@ -21,14 +19,20 @@ function App() {
   }, [sessionLength]);
 
   useEffect(() => {
-    if (sessionsCompleted === 4) {
-      setBreakLength(breakLength * 2)
-      console.log("sessions completed = 4",breakLength)
-    } if (sessionsCompleted > 4) {
+    if (sessionsCompleted < 4) {
+      setSessionsCompleted(sessionsCompleted)
+    } else if (sessionsCompleted > 4) {
       setSessionsCompleted(1)
+    }
+  }, [sessionsCompleted])
+
+  useEffect(() => {
+    if (sessionsCompleted < 3) {
       setBreakLength(breakLength)
-    } if (sessionsCompleted <= 4) {
-      setBreakLength(breakLength)
+    } else if (sessionsCompleted === 3) {
+      setBreakLength(breakLength * 2)
+    } else if (sessionsCompleted === 4) {
+      setBreakLength(breakLength / 2)
     }
   }, [sessionsCompleted])
 
@@ -46,17 +50,6 @@ function App() {
     }
   }, [breakLength, currentSessionType, sessionLength, timeLeft])
 
-  // useEffect(() => {
-  //   if (sessionsCompleted > 0 && sessionsCompleted % 4 === 0) {
-  //     setSessionsCompleted(0)
-  //     setBreakLength(breakLength * 2)
-  //     console.log("session divisible by 4 - break length", breakLength)
-  //   } else if (sessionsCompleted > 0 && sessionsCompleted % 4 != 0) {
-  //     setBreakLength(breakLength / 2)
-  //     console.log("session not divisible by 4 - break length", breakLength)
-  //   }
-  // }, [sessionsCompleted])
-
   const decreaseSessionLengthByOneMinute = () => {
       const newSessionLength = sessionLength - (60 * 5);
 
@@ -71,6 +64,9 @@ function App() {
       setSessionLength(sessionLength + (60 * 5));
   };
 
+  const addSessionToCompleted = () => {
+    setSessionsCompleted(sessionsCompleted + 1)
+  }
 
   const decreaseBreakLengthByOneMinute = () => {
       const newBreakLength = breakLength - (60 * 5);
@@ -85,10 +81,6 @@ function App() {
   const increaseBreakLengthByOneMinute = () => {
       setBreakLength(breakLength + (60 * 5));
   };
-
-  const addSessionToCompleted = () => {
-    setSessionsCompleted(sessionsCompleted + 1)
-  }
 
   const isStarted = intervalID !== null;
   const handleStartStopClick = () => {
@@ -118,7 +110,7 @@ function App() {
     setIntervalID(null)
     setCurrentSessionType('Session')
     if (speed === 1000) {
-      setSpeed(10)
+      setSpeed(50)
     } else {
       setSpeed(1000)
     }

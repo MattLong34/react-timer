@@ -24,7 +24,7 @@ function App() {
     } else if (sessionsCompleted > 4) {
       setSessionsCompleted(1)
     }
-  }, [sessionsCompleted])
+  }, [sessionsCompleted]);
 
   useEffect(() => {
     if (sessionsCompleted < 3) {
@@ -34,7 +34,7 @@ function App() {
     } else if (sessionsCompleted === 4) {
       setBreakLength(breakLength / 2)
     }
-  }, [sessionsCompleted])
+  }, [sessionsCompleted]);
 
   useEffect(() => {
     if (timeLeft === 0) {
@@ -48,7 +48,7 @@ function App() {
         setTimeLeft(sessionLength)
       }
     }
-  }, [breakLength, currentSessionType, sessionLength, timeLeft])
+  }, [breakLength, currentSessionType, sessionLength, timeLeft]);
 
   const decreaseSessionLengthByOneMinute = () => {
       const newSessionLength = sessionLength - (60 * 5);
@@ -66,7 +66,7 @@ function App() {
 
   const addSessionToCompleted = () => {
     setSessionsCompleted(sessionsCompleted + 1)
-  }
+  };
 
   const decreaseBreakLengthByOneMinute = () => {
       const newBreakLength = breakLength - (60 * 5);
@@ -103,7 +103,8 @@ function App() {
     setBreakLength(60 * 5)
     setTimeLeft(60 * 25)
     setSpeed(1000)
-  }
+  };
+
   const handleLudicrousModeButton = () => {
     audioElement.current.load()
     clearInterval(intervalID)
@@ -114,7 +115,7 @@ function App() {
     } else {
       setSpeed(1000)
     }
-  }
+  };
   
   return (
     <div className="App">
@@ -148,6 +149,6 @@ function App() {
         </div>
     </div>
   );
-}
+};
 
 export default App;

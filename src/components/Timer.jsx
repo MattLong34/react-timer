@@ -10,7 +10,6 @@ const Timer = ({
     startStopButtonLabel,
     timeLeft
 }) => {
-
     const formattedTimeLeft = moment.duration(timeLeft, 's').format('mm:ss', { trim: false });
     return (
         <div>
@@ -18,7 +17,7 @@ const Timer = ({
             <p id="time-left">{formattedTimeLeft}</p>
             <button className="button-large" onClick={handleStartStopClick}>{startStopButtonLabel}</button>
         </div>
-    )
+    );
 };
 
 export default Timer;

@@ -1,70 +1,106 @@
-# Getting Started with Create React App
+# Tesla Timer
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> Use this Tesla-themed pomodoro timer to crusie through your work!
 
-## Available Scripts
+## Table of Contents
 
-In the project directory, you can run:
+- [General Info](#general-info)
+- [Sneak Peak](#sneak-peek)
+- [Technologies](#technologies)
+- [Setup](#setup)
+- [Code Examples](#code-examples)
+- [Features](#features)
+- [Status](#status)
+- [Contact](#contact)
+- [License](#license)
 
-### `yarn start`
+## General Info
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Tesla Timer is a full-fledged pomodoro timer with style! Adjust your session and break times to your liking; a chime will play when it's time to take a break or start a new session.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Want to see Tesla Timer in action without waiting in real time? Launch Ludicrous Mode and watch the time blaze down at high speed!
 
-### `yarn test`
+## Sneak Peek
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+![Tesla Timer Image](https://imgur.com/a/SRDK2En)
 
-### `yarn build`
+## Technologies
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- HTML5
+- CSS
+- JavaScript
+- React
+- Moment.js
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Setup
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Tesla Timer is live! Visit Tesla Timer out in the wild at https://react-timer-1.web.app today. No further setup required!
 
-### `yarn eject`
+## Code Examples
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```javaScript
+const handleLudicrousModeButton = () => {
+    audioElement.current.load()
+    clearInterval(intervalID)
+    setIntervalID(null)
+    setCurrentSessionType('Session')
+    if (speed === 1000) {
+      setSpeed(50)
+    } else {
+      setSpeed(1000)
+    }
+  };
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```javascript
+const Session = ({
+	sessionLength,
+	decreaseSessionLengthByOneMinute,
+	increaseSessionLengthByOneMinute,
+}) => {
+	const sessionLengthInMinutes = moment.duration(sessionLength, "s").minutes();
+	return (
+		<div>
+			<p className="type-label">Session</p>
+			<p id="session-length">{sessionLengthInMinutes}m</p>
+			<button
+				className="button-small"
+				id="session-decrease"
+				onClick={decreaseSessionLengthByOneMinute}
+			>
+				-
+			</button>
+			<button
+				className="button-small"
+				id="session-increase"
+				onClick={increaseSessionLengthByOneMinute}
+			>
+				+
+			</button>
+		</div>
+	);
+};
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Features
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- Utilize the fully functional pomodoro timer
+- Adjust session and break times as desired
+- Take a longer break after completing four sessions
+- Launch Ludicrous Mode to test the app's functionality in high speed
 
-## Learn More
+## Status
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Version 1.0 is complete and deployed (https://react-timer-1.web.app)!
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Future versions may include expanded functionality and design improvements.
 
-### Code Splitting
+## Contact
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+[Matt Long](https://www.linkedin.com/in/mattlong34/)
 
-### Analyzing the Bundle Size
+Feel free to contact me with any questions or suggestions!
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## License
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+[Click to view]()

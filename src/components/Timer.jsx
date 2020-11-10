@@ -16,7 +16,7 @@ const Timer = ({
         <div>
             <p id="timer-label">{timerLabel}</p>
             <p id="time-left">{formattedTimeLeft}</p>
-            <button onClick={handleStartStopClick}>{startStopButtonLabel}</button>
+            <button className="button-large" onClick={handleStartStopClick}>{startStopButtonLabel}</button>
         </div>
     )
 };

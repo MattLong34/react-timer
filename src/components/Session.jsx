@@ -9,10 +9,10 @@ const Session = ({
     const sessionLengthInMinutes = moment.duration(sessionLength, 's').minutes()
     return (
         <div>
-            <p id="session-label">Session</p>
-            <p id="session-length">{sessionLengthInMinutes}</p>
-            <button id="session-decrease" onClick={decreaseSessionLengthByOneMinute}>-</button>
-            <button id="session-increase" onClick={increaseSessionLengthByOneMinute}>+</button>
+            <p className="type-label">Session</p>
+            <p id="session-length">{sessionLengthInMinutes}m</p>
+            <button className="button-small" id="session-decrease" onClick={decreaseSessionLengthByOneMinute}>-</button>
+            <button className="button-small" id="session-increase" onClick={increaseSessionLengthByOneMinute}>+</button>
         </div>
     );
 };

@@ -5,8 +5,6 @@ import Break from './components/Break'
 import Session from './components/Session'
 import Timer from './components/Timer'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container, Card, Row, Button } from 'react-bootstrap';
-
 
 function App() {
   const audioElement = useRef(null)
@@ -16,31 +14,23 @@ function App() {
   const [intervalID, setIntervalID] = useState(null);
   const [currentSessionType, setCurrentSessionType] = useState('Session');
   const [sessionsCompleted, setSessionsCompleted] = useState(0);
-  const [testMode, setTestMode] = useState(false);
   const [speed, setSpeed] = useState(1000);
-
-  // const shortBreak = (60 * 5);
-  // const longBreak = (60 * 10);
-  // const testShortBreak = (60 * 1);
-  // const testLongBreak = (60 * 2);
 
   useEffect(() => {
       setTimeLeft(sessionLength)
   }, [sessionLength]);
 
   useEffect(() => {
-    if (testMode === false && sessionsCompleted === 4) {
-      setSessionsCompleted(0)
-      setBreakLength(60 * 10)
-    } else if (testMode === false && sessionsCompleted !== 4) {
-      setBreakLength(60 * 5)
-    } else if (testMode === true && sessionsCompleted === 4) {
-      setSessionsCompleted(0)
-      setBreakLength(60 * 2)
-    } else if (testMode === true && sessionsCompleted !== 4) {
-      setBreakLength(60 * 1)
+    if (sessionsCompleted === 4) {
+      setBreakLength(breakLength * 2)
+      console.log("sessions completed = 4",breakLength)
+    } if (sessionsCompleted > 4) {
+      setSessionsCompleted(1)
+      setBreakLength(breakLength)
+    } if (sessionsCompleted <= 4) {
+      setBreakLength(breakLength)
     }
-  }, [sessionsCompleted]);
+  }, [sessionsCompleted])
 
   useEffect(() => {
     if (timeLeft === 0) {
@@ -66,22 +56,6 @@ function App() {
   //     console.log("session not divisible by 4 - break length", breakLength)
   //   }
   // }, [sessionsCompleted])
-
-  // const testMode = false;
-
-  // const setTestMode = () => {
-  //   const testMode = true
-  // };
-
-
-  // useEffect(() => {
-  //   if (testMode === true && sessionsCompleted === 4) {
-  //     setSessionsCompleted(0)
-  //     setBreakLength(testLongBreak)
-  //   } else if (testMode === true && sessionsCompleted != 4) {
-  //     setBreakLength(testShortBreak)
-  //   }
-  // }, [sessionsCompleted]);
 
   const decreaseSessionLengthByOneMinute = () => {
       const newSessionLength = sessionLength - (60 * 5);
@@ -136,55 +110,41 @@ function App() {
     setSessionLength(60 * 25)
     setBreakLength(60 * 5)
     setTimeLeft(60 * 25)
-    // const testMode = false
-    setTestMode(false)
-    console.log("testMode false", testMode)
+    setSpeed(1000)
   }
   const handleLudicrousModeButton = () => {
     audioElement.current.load()
     clearInterval(intervalID)
     setIntervalID(null)
     setCurrentSessionType('Session')
-    // setSpeed(100)
     if (speed === 1000) {
-      setSpeed(50)
+      setSpeed(10)
     } else {
       setSpeed(1000)
     }
   }
-  // const handleTestModeButton = () => {
-  //   audioElement.current.load()
-  //   clearInterval(intervalID)
-  //   setIntervalID(null)
-  //   setCurrentSessionType('Session')
-  //   setSessionLength(60 * 1)
-  //   setBreakLength(60 * 1)
-  //   setTimeLeft(60 * 1)
-  //   setTestMode(true)
-  //   console.log("test mode true", testMode)
-  // }
+  
   return (
     <div className="App">
       <div className="pomodoro">
-
-      <Timer 
-        timerLabel={currentSessionType}
-        handleStartStopClick={handleStartStopClick}
-        startStopButtonLabel={isStarted? 'Stop' : 'Start'}
-        timeLeft={timeLeft}
-        />
-        <div className="labels-row">
-          <Break 
-            breakLength={breakLength}
-            decreaseBreakLengthByOneMinute={decreaseBreakLengthByOneMinute}
-            increaseBreakLengthByOneMinute={increaseBreakLengthByOneMinute}
-            />
-          <Session 
-            sessionLength={sessionLength}
-            decreaseSessionLengthByOneMinute={decreaseSessionLengthByOneMinute}
-            increaseSessionLengthByOneMinute={increaseSessionLengthByOneMinute}
-            />
-        </div>
+        <Timer 
+          timerLabel={currentSessionType}
+          handleStartStopClick={handleStartStopClick}
+          startStopButtonLabel={isStarted? 'Stop' : 'Start'}
+          timeLeft={timeLeft}
+          />
+          <div className="labels-row">
+            <Break 
+              breakLength={breakLength}
+              decreaseBreakLengthByOneMinute={decreaseBreakLengthByOneMinute}
+              increaseBreakLengthByOneMinute={increaseBreakLengthByOneMinute}
+              />
+            <Session 
+              sessionLength={sessionLength}
+              decreaseSessionLengthByOneMinute={decreaseSessionLengthByOneMinute}
+              increaseSessionLengthByOneMinute={increaseSessionLengthByOneMinute}
+              />
+          </div>
         <div className="settings-row">
           <button className="button-large" onClick={handleResetButton}>Reset Settings</button>
           <button className="button-large" onClick={handleLudicrousModeButton}>Ludicrous Mode</button>
